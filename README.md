@@ -64,6 +64,7 @@ When the page is loaded or its own URL changes:
     ├── components/
     │   ├── AppHeader.tsx       # Component for the main application header
     │   ├── DataBlock.tsx       # Reusable component for displaying data + copy button
+    │   ├── HeaderBanner.tsx    # Component for the header banner for the application header
     │   ├── ParamsGrid.tsx      # Component to display query parameters in a grid
     │   └── componentStyles.css # CSS file for component-specific styles (optional)
     ├── types.ts                # Shared TypeScript type definitions
