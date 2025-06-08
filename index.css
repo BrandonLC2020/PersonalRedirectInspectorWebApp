@@ -60,7 +60,8 @@ h1 {
   margin-bottom: 15px;
 }
 
-.current-uri-section {
+.current-uri-section,
+.manual-inspect-section {
   background-color: #f9f9f9;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
@@ -70,7 +71,8 @@ h1 {
   text-align: left; /* Override header's center align for this block's content */
 }
 
-.current-uri-section h4 {
+.current-uri-section h4,
+.manual-inspect-section h4 {
   margin-top: 0;
   margin-bottom: 8px;
   font-size: 1.1em;
@@ -79,6 +81,36 @@ h1 {
 
 .current-uri-section .code-block {
   margin-bottom: 10px;
+}
+
+.manual-inspect-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.manual-url-input {
+  flex-grow: 1;
+  padding: 8px 10px;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 0.95em;
+  box-sizing: border-box;
+}
+
+.manual-url-input:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 1px;
+  border-color: #3498db;
+}
+
+.inspect-url-button {
+  flex-shrink: 0;
+  background-color: #27ae60; /* A green color for action */
+}
+
+.inspect-url-button:hover {
+  background-color: #229954;
 }
 
 
@@ -151,8 +183,13 @@ button {
   font-size: 0.9em;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, transform 0.1s ease;
-  margin-top: 5px;
+  margin-top: 5px; /* Default margin, can be overridden */
 }
+/* Remove top margin for buttons inside flex containers like manual-inspect-controls */
+.manual-inspect-controls button {
+  margin-top: 0;
+}
+
 
 button:hover {
   background-color: #2980b9;
@@ -169,9 +206,12 @@ button:focus-visible {
 
 .clear-history-button {
   background-color: #e74c3c;
-  position: absolute;
+  /* position: absolute;
   top: 20px;
-  right: 0px;
+  right: 0px; */
+  /* Re-positioning: Make it appear below manual inspect, centered, or to a side based on layout flow */
+  display: block; /* Make it a block to take width or allow margin auto */
+  margin: 25px auto 0; /* Center it with margin auto and add top margin */
   padding: 10px 18px;
   font-size: 0.95em;
 }
@@ -248,13 +288,14 @@ section > p { /* For "No data" messages in DataBlock or ParamsGrid */
 /* Responsive adjustments */
 @media (max-width: 700px) {
   .clear-history-button {
-    position: static; 
+    /* position: static;  already changed above */
     display: block;
     width: fit-content;
-    margin: 15px auto 0; 
+    margin: 20px auto 0; 
   }
 
-  .current-uri-section {
+  .current-uri-section,
+  .manual-inspect-section {
     margin-left: -15px; 
     margin-right: -15px;
     padding-left: 15px; 
@@ -281,10 +322,25 @@ section > p { /* For "No data" messages in DataBlock or ParamsGrid */
     font-size: 1em;
   }
 
-  .current-uri-section {
+  .current-uri-section,
+  .manual-inspect-section {
     margin-left: 0;
     margin-right: 0;
   }
+  
+  .manual-inspect-controls {
+    flex-direction: column;
+    align-items: stretch; /* Make input and button full width */
+  }
+
+  .manual-url-input {
+    margin-bottom: 10px; /* Space when stacked */
+  }
+
+  .inspect-url-button {
+    width: 100%; /* Full width when stacked */
+  }
+
 
   .params-grid {
     grid-template-columns: 1fr; 
