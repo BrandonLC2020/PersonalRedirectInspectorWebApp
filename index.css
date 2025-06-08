@@ -26,7 +26,6 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Visually hidden class for ARIA live region feedback that should not be displayed */
 .visually-hidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -36,7 +35,7 @@ body {
   padding: 0;
   position: absolute;
   width: 1px;
-  white-space: nowrap; /* prevent line breaks from affecting layout */
+  white-space: nowrap; 
 }
 
 
@@ -60,15 +59,15 @@ h1 {
   margin-bottom: 15px;
 }
 
-.current-uri-section,
-.manual-inspect-section {
+.current-uri-section, /* Used for auto-inspected URI block */
+.manual-inspect-section { /* Used for default URL setting and manual inspection blocks */
   background-color: #f9f9f9;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
   padding: 15px;
   margin-top: 15px;
   margin-bottom: 20px;
-  text-align: left; /* Override header's center align for this block's content */
+  text-align: left;
 }
 
 .current-uri-section h4,
@@ -79,14 +78,31 @@ h1 {
   color: #34495e;
 }
 
-.current-uri-section .code-block {
+.current-uri-section .code-block,
+.manual-inspect-section .code-block { /* For any code blocks within these sections */
   margin-bottom: 10px;
 }
+
+.current-default-info {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 10px;
+  background-color: #e9ecef;
+  padding: 5px 8px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+.current-default-info .code-block.inline.small {
+  font-size: 0.9em;
+  padding: 2px 4px;
+}
+
 
 .manual-inspect-controls {
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap; /* Allow wrapping if buttons don't fit */
 }
 
 .manual-url-input {
@@ -96,6 +112,7 @@ h1 {
   border-radius: 4px;
   font-size: 0.95em;
   box-sizing: border-box;
+  min-width: 200px; /* Ensure input has some base width */
 }
 
 .manual-url-input:focus-visible {
@@ -104,13 +121,21 @@ h1 {
   border-color: #3498db;
 }
 
-.inspect-url-button {
+.inspect-url-button { /* General style for action buttons in controls */
   flex-shrink: 0;
-  background-color: #27ae60; /* A green color for action */
+  background-color: #27ae60; 
 }
 
 .inspect-url-button:hover {
   background-color: #229954;
+}
+
+.clear-default-button {
+  flex-shrink: 0;
+  background-color: #f39c12; /* Orange for clear/warning */
+}
+.clear-default-button:hover {
+  background-color: #e67e22;
 }
 
 
@@ -125,7 +150,7 @@ h2 {
 }
 
 .redirect-card h3, .redirect-card h4,
-.components-DataBlock-module__title { /* Example if using CSS Modules */
+.components-DataBlock-module__title {
   margin-top: 0;
   color: #34495e;
 }
@@ -139,7 +164,7 @@ h2 {
 }
 
 .redirect-card h4, 
-section > h4 { /* For h4 in DataBlock and Query Params section */
+section > h4 { 
   font-size: 1.1em;
   margin-bottom: 8px;
   color: #2980b9;
@@ -183,11 +208,11 @@ button {
   font-size: 0.9em;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, transform 0.1s ease;
-  margin-top: 5px; /* Default margin, can be overridden */
+  margin-top: 5px; 
 }
-/* Remove top margin for buttons inside flex containers like manual-inspect-controls */
+
 .manual-inspect-controls button {
-  margin-top: 0;
+  margin-top: 0; /* Override default for buttons in flex controls */
 }
 
 
@@ -206,12 +231,8 @@ button:focus-visible {
 
 .clear-history-button {
   background-color: #e74c3c;
-  /* position: absolute;
-  top: 20px;
-  right: 0px; */
-  /* Re-positioning: Make it appear below manual inspect, centered, or to a side based on layout flow */
-  display: block; /* Make it a block to take width or allow margin auto */
-  margin: 25px auto 0; /* Center it with margin auto and add top margin */
+  display: block; 
+  margin: 25px auto 0; 
   padding: 10px 18px;
   font-size: 0.95em;
 }
@@ -255,19 +276,24 @@ button:focus-visible {
 p {
   color: #555;
 }
-section > p { /* For "No data" messages in DataBlock or ParamsGrid */
+section > p { 
   margin-top: 5px;
   font-style: italic;
+}
+.current-uri-section > p { /* For "No URI auto-inspected yet" message */
+  font-style: normal;
+  color: #7f8c8d;
 }
 
 .empty-history-message {
   text-align: center;
-  font-size: 1.1em;
+  font-size: 1.05em; /* Slightly smaller */
   color: #7f8c8d;
-  padding: 40px 20px;
+  padding: 30px 20px; /* Less padding */
   background-color: #f9f9f9;
   border-radius: 5px;
   border: 1px dashed #ccc;
+  line-height: 1.5;
 }
 
 .history-list {
@@ -288,7 +314,6 @@ section > p { /* For "No data" messages in DataBlock or ParamsGrid */
 /* Responsive adjustments */
 @media (max-width: 700px) {
   .clear-history-button {
-    /* position: static;  already changed above */
     display: block;
     width: fit-content;
     margin: 20px auto 0; 
@@ -330,15 +355,21 @@ section > p { /* For "No data" messages in DataBlock or ParamsGrid */
   
   .manual-inspect-controls {
     flex-direction: column;
-    align-items: stretch; /* Make input and button full width */
+    align-items: stretch; 
   }
 
   .manual-url-input {
-    margin-bottom: 10px; /* Space when stacked */
+    margin-bottom: 10px; 
+    width: 100%; /* Ensure full width when stacked */
+    box-sizing: border-box; /* Include padding/border in width */
   }
 
-  .inspect-url-button {
-    width: 100%; /* Full width when stacked */
+  .manual-inspect-controls button { /* All buttons in these controls when stacked */
+    width: 100%; 
+    margin-bottom: 8px; /* Add some space between stacked buttons */
+  }
+  .manual-inspect-controls button:last-child {
+    margin-bottom: 0;
   }
 
 
@@ -366,8 +397,8 @@ section > p { /* For "No data" messages in DataBlock or ParamsGrid */
     width: 100%;
     box-sizing: border-box;
   }
-  button {
-    padding: 10px 15px;
-    font-size: 0.95em;
+  button { /* General button style adjustment for smaller screens */
+    padding: 10px 12px; /* Slightly adjust padding */
+    font-size: 0.9em; /* Adjust font size if needed */
   }
 }
