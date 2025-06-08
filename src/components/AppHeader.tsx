@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import { useCopyToClipboard } from '../useCopyToClipboard';
+import HeaderBanner from './HeaderBanner'; // Import the new banner component
 
 interface AppHeaderProps {
   autoInspectedUri: string;
@@ -66,10 +67,10 @@ function AppHeader({
 
   return (
     <header>
-      <h1>Redirect History Inspector</h1>
-      <p className="subtitle">View history of data passed to this page, set a default URL to monitor, or manually inspect any URL.</p>
+      {/* Use the new HeaderBanner component */}
+      <HeaderBanner />
 
-      <div className="current-uri-section"> {/* Renamed class to reflect generic section styling */}
+      <div className="current-uri-section">
         <h4>Auto-Inspected URI:</h4>
         {autoInspectedUri ? (
           <>
@@ -88,12 +89,12 @@ function AppHeader({
         )}
       </div>
       
-      <div className="manual-inspect-section"> {/* Existing class for styling consistency */}
+      <div className="manual-inspect-section">
         <h4 id="default-url-heading">Set Default Monitored URL:</h4>
         {currentDefaultUrlSet && (
           <p className="current-default-info">Currently set to: <code className="code-block inline small">{currentDefaultUrlSet}</code></p>
         )}
-        <div className="manual-inspect-controls"> {/* Re-using class for layout */}
+        <div className="manual-inspect-controls">
           <input
             type="url"
             value={defaultCustomUrlInputValue}
@@ -104,7 +105,7 @@ function AppHeader({
             aria-label="URL to set as default for monitoring"
             className="manual-url-input"
           />
-          <button onClick={handleSetDefaultUrlClick} className="inspect-url-button"> {/* inspect-url-button for similar style */}
+          <button onClick={handleSetDefaultUrlClick} className="inspect-url-button">
             Set as Default
           </button>
            {currentDefaultUrlSet && (

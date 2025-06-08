@@ -4,8 +4,8 @@
  */
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css'; // Main styles
-import './src/components/componentStyles.css'; // Component-specific styles (if any)
+//import './index.css'; // Main styles
+//import './src/components/componentStyles.css'; // Component-specific styles (if any)
 
 import RedirectCard from './RedirectCard';
 import AppHeader from './src/components/AppHeader';
@@ -128,7 +128,7 @@ function App() {
       id: Date.now().toString(),
       timestamp: Date.now(),
       fullUrl: parsedUrl.href,
-      queryParams: Array.from(parsedUrl.searchParams.entries()).map(([key, value]) => ({ key, value })),
+      queryParams: Array.from(parsedUrl.searchParams.entries() as IterableIterator<[string, string]>).map(([key, value]) => ({ key, value })),
       fragment: parsedUrl.hash,
     };
 
