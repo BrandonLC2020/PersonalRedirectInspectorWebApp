@@ -3,16 +3,20 @@
 
 The Redirect URI Inspector is a web-based tool designed to help developers inspect and understand the data passed to a page via its URL. This is particularly useful when working with OAuth 2.0 flows, SAML assertions, or any scenario where a page acts as a redirect target and needs to process query parameters or URL fragments.
 
-The application captures the full URL, breaks down query parameters into key-value pairs, and displays the URL fragment (hash). It maintains a history of visited URIs (with their parsed data) using the browser's `localStorage`, allowing you to see a log of redirects over time.
+The application captures the full URL, breaks down query parameters into key-value pairs, and displays the URL fragment (hash). It maintains a history of visited URIs (with their parsed data) using the browser's `localStorage`, allowing you to see a log of redirects over time. Users can also set a default URL to be monitored automatically or manually inspect any specific URL on demand.
 
 ## Features
 
-*   **URL Parsing:** Displays the full URL, a list of query parameters, and the URL fragment.
-*   **History Tracking:** Stores a history of unique redirect entries in `localStorage`.
-*   **Reverse Chronological Order:** Shows the most recent redirect at the top.
+*   **URL Parsing:** Displays the full URL, a list of query parameters, and the URL fragment for inspected URIs.
+*   **Automated Inspection:**
+    *   By default, inspects the application's own `window.location.href` when it loads or changes.
+    *   **Configurable Default Monitored URL:** Users can set a persistent "default monitored URL". If set, and the application is opened without its own query parameters or fragment, this default URL will be inspected instead.
+*   **Manual URL Inspection:** Allows users to input any URL directly into the application for immediate parsing and addition to the history.
+*   **History Tracking:** Stores a history of unique redirect entries (from automated or manual inspections) in `localStorage`.
+*   **Reverse Chronological Order:** Shows the most recent entry at the top.
 *   **Clear History:** Option to clear all stored redirect history.
 *   **Copy to Clipboard:**
-    *   Copy the currently inspected URI.
+    *   Copy the auto-inspected URI.
     *   Copy the full URL of any historical entry.
     *   Copy all query parameters of an entry as a JSON object.
     *   Copy the URL fragment of an entry.
@@ -22,13 +26,21 @@ The application captures the full URL, breaks down query parameters into key-val
 
 ## How it Works
 
-When the page is loaded:
-1.  It reads `window.location.href`, `window.location.search`, and `window.location.hash`.
-2.  It parses the query string into a list of key-value pairs.
-3.  A new entry containing this data, along with a timestamp, is created.
+When the page is loaded or its own URL changes:
+1.  The application determines the URL to inspect:
+    *   It first checks `window.location.href`.
+    *   If `window.location.href` has significant query parameters or a fragment, this URL is chosen for inspection.
+    *   If `window.location.href` is "plain" (no significant query/fragment) AND a default custom URL has been set by the user (and stored in `localStorage`), that default custom URL is chosen for inspection.
+    *   Otherwise (plain `window.location.href` and no default custom URL), the plain `window.location.href` is used.
+2.  The chosen URL is parsed: its query string is broken into key-value pairs, and its fragment is extracted.
+3.  A new entry containing this data, along with a timestamp, is created for the chosen URL.
 4.  This entry is added to a list of historical entries, which is then saved to `localStorage`.
-5.  To avoid redundant entries, a new record is only added if its full URL differs from the most recently logged URL.
+5.  To avoid redundant entries from auto-inspection, a new record is only added if its content (full URL, query params, fragment) differs from the most recently logged entry.
 6.  The history is displayed, with the latest entry appearing first.
+
+**Manual Inspection:**
+*   Users can input any URL into the "Manually Inspect Specific URL" field.
+*   Upon submission, this URL is parsed, and a new entry is created and added to the history, regardless of the auto-inspection logic.
 
 ## Tech Stack
 
@@ -84,14 +96,32 @@ To run this application on your local machine, you'll need Node.js and npm insta
 
 ## How to Use
 
-1.  Navigate to the application's URL in your browser.
-2.  To test its functionality, append query parameters and a URL fragment to the URL. For example, if Parcel serves the app at `http://localhost:1234`, you could navigate to:
-    `http://localhost:1234/?name=JohnDoe&status=active&id=123#profileDetails`
-3.  The application will display the full URL, the parsed query parameters (`name`, `status`, `id`), and the fragment (`#profileDetails`).
-4.  This visit will be logged in the history.
-5.  If you visit again with different parameters or a different fragment, a new entry will be added to the top of the history list.
-6.  Use the "Copy" buttons to copy specific pieces of information to your clipboard.
-7.  Use the "Clear History" button in the header to remove all logged entries.
+1.  **Automatic Inspection (as Redirect Target):**
+    *   Navigate to the application's URL in your browser.
+    *   To test its functionality as a redirect target, append query parameters and a URL fragment to its *own* URL. For example, if Parcel serves the app at `http://localhost:1234`, you could navigate to:
+        `http://localhost:1234/?name=JohnDoe&status=active&id=123#profileDetails`
+    *   The application will display the full URL, the parsed query parameters (`name`, `status`, `id`), and the fragment (`#profileDetails`). This visit will be logged.
+
+2.  **Set/Clear Default Monitored URL:**
+    *   In the header, find the "Set Default Monitored URL" section.
+    *   Enter a complete URL (e.g., your ngrok URL, `https://your-service.ngrok.io/callback`) into the input field and click "Set as Default".
+    *   If a default URL is set, and you open the Redirect Inspector *without* any query parameters or hash in its own URL (e.g., just `http://localhost:1234/`), it will automatically inspect your specified default URL.
+    *   The currently set default URL will be displayed. You can clear it using the "Clear Default" button.
+
+3.  **Manually Inspect a Specific URL:**
+    *   In the header, find the "Manually Inspect Specific URL" section.
+    *   Enter any full URL you wish to examine into the input field (e.g., `https://example.com/login?token=abc&session=xyz#data`).
+    *   Click "Inspect URL". The components of this URL will be parsed and added to the history.
+
+4.  **Viewing History:**
+    *   All inspected entries (automatic, default, or manual) appear in the history list below the header.
+    *   The most recent entry is at the top.
+
+5.  **Using "Copy" Buttons:**
+    *   Each data block (Auto-Inspected URI, Full URL in cards, Query Params, Fragment) has a "Copy" button to easily copy the respective data to your clipboard.
+
+6.  **Clearing History:**
+    *   Use the "Clear History" button in the header to remove all logged entries from `localStorage` and the display.
 
 ## License
 
