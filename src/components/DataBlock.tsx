@@ -2,7 +2,6 @@
  * @license
  * SPDX-License-Identifier: MIT
  */
-import React from 'react';
 import { useCopyToClipboard } from '../useCopyToClipboard';
 
 interface DataBlockProps {
