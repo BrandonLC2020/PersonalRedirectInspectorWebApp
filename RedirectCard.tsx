@@ -2,7 +2,6 @@
  * @license
  * SPDX-License-Identifier: MIT
  */
-import React from 'react';
 import type { KeyValue, RedirectData } from './src/types'; // Corrected path
 import { useCopyToClipboard } from './src/useCopyToClipboard'; // Corrected path
 import ParamsGrid from './src/components/ParamsGrid'; // Corrected path
