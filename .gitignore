@@ -1,0 +1,9 @@
+# dependencies
+node_modules/
+
+# Build output
+dist/
+.parcel-cache/*
+
+# Environment variables
+.env*
