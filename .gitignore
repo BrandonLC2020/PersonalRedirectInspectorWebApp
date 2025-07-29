@@ -3,7 +3,7 @@ node_modules/
 
 # Build output
 dist/
-.parchel-cache/*
+.parcel-cache/*
 
 # Environment variables
 .env*
