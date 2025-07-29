@@ -7,3 +7,4 @@ dist/
 
 # Environment variables
 .env*
+package-lock.json
