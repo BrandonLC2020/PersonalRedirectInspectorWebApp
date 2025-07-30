@@ -2,10 +2,10 @@
  * @license
  * SPDX-License-Identifier: MIT
  */
-import type { KeyValue, RedirectData } from './src/types'; // Corrected path
-import { useCopyToClipboard } from './src/useCopyToClipboard'; // Corrected path
-import ParamsGrid from './src/components/ParamsGrid'; // Corrected path
-import DataBlock from './src/components/DataBlock'; // Corrected path
+import type { KeyValue, RedirectData } from '../types'; // Corrected path
+import { useCopyToClipboard } from '../useCopyToClipboard'; // Corrected path
+import ParamsGrid from './ParamsGrid'; // Corrected path
+import DataBlock from './DataBlock'; // Corrected path
 
 // Helper function to format query params as JSON string
 const formatQueryParamsAsJson = (queryParams: KeyValue[]): string => {

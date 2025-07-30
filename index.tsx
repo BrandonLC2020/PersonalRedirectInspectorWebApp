@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom/client';
 //import './index.css'; // Main styles
 //import './src/components/componentStyles.css'; // Component-specific styles (if any)
 
-import RedirectCard from './RedirectCard';
+import RedirectCard from './src/components/RedirectCard';
 import AppHeader from './src/components/AppHeader';
 import type { KeyValue, RedirectData } from './src/types';
 

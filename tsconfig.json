@@ -29,5 +29,5 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["src", "RedirectCard.tsx"]
+  "include": ["src", "src/components/RedirectCard.tsx"]
 }
