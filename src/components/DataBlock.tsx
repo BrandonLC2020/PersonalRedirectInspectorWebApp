@@ -2,10 +2,10 @@
  * @license
  * SPDX-License-Identifier: MIT
  */
-import React from 'react';
 import { useCopyToClipboard } from '../useCopyToClipboard';
 import { Box, Typography, Paper, Button } from '@mui/material';
-import { visuallyHidden } from '@mui/utils';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
 
 interface DataBlockProps {
   title: string;
@@ -46,13 +46,13 @@ function DataBlock({
             size="small"
             variant="outlined"
             onClick={handleCopy}
-            startIcon={<img src="/icons/content-copy.svg" alt="Copy icon" width="20" height="20" />}
+            startIcon={<ContentCopyIcon />}
             aria-live="polite"
             aria-describedby={isCopied ? `${dataId}-copied-feedback` : undefined}
           >
             {isCopied ? copiedButtonLabel : copyButtonLabel}
           </Button>
-          {isCopied && <span id={`${dataId}-copied-feedback`} style={visuallyHidden}>Content copied to clipboard.</span>}
+          {isCopied && <span id={`${dataId}-copied-feedback`} className="visually-hidden">Content copied to clipboard.</span>}
         </>
       ) : (
         <Typography color="text.secondary">{emptyContentMessage}</Typography>

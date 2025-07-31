@@ -143,7 +143,7 @@ function App() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+    <Container maxWidth="md" sx={{ mt: 4, mb: 4}}>
       <AppHeader
         autoInspectedUri={mainInspectedUrl}
         historyLength={history.length}
@@ -156,6 +156,7 @@ function App() {
         onSetDefaultCustomUrl={handleSetDefaultCustomUrl}
         currentDefaultUrlSet={defaultCustomUrl}
       />
+      <br/>
       <main>
         {history.length === 0 ? (
           <Paper elevation={2} sx={{ p: 3, textAlign: 'center', mt: 4, border: '1px dashed', borderColor: 'grey.400' }}>

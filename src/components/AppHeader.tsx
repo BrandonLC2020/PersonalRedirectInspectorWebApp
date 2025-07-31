@@ -2,11 +2,15 @@
  * @license
  * SPDX-License-Identifier: MIT
  */
-import React from 'react';
 import { useCopyToClipboard } from '../useCopyToClipboard';
 import { Box, Paper, TextField, Button, Stack, Chip, Typography } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import HeaderBanner from './HeaderBanner';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import SavedSearchIcon from '@mui/icons-material/SavedSearch';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface AppHeaderProps {
   autoInspectedUri: string;
@@ -44,12 +48,12 @@ function AppHeader({
 
   return (
     <Box component="header">
-      <HeaderBanner />
-
+      
       <Stack spacing={2}>
+        <HeaderBanner />
         <Paper variant="outlined" sx={{ p: 2 }}>
           <Typography variant="h6" component="h2" sx={{ mb: 1.5, display: 'flex', alignItems: 'center', gap: 1 }}>
-            <img src="/icons/link.svg" alt="Link icon" width="24" height="24" /> Auto-Inspected URI
+            <ManageSearchIcon /> Auto-Inspected URI
           </Typography>
           {autoInspectedUri ? (
             <>
@@ -59,7 +63,7 @@ function AppHeader({
               <Button
                 size="small"
                 variant="outlined"
-                startIcon={<img src="/icons/content-copy.svg" alt="Copy icon" width="20" height="20" />}
+                startIcon={<ContentCopyIcon />}
                 onClick={handleCopyUri}
                 aria-live="polite"
               >
@@ -74,7 +78,7 @@ function AppHeader({
 
         <Paper variant="outlined" sx={{ p: 2 }}>
           <Typography variant="h6" component="h2" sx={{ mb: 1.5, display: 'flex', alignItems: 'center', gap: 1 }}>
-            <img src="/icons/bookmark-add.svg" alt="Bookmark icon" width="24" height="24" /> Set Default Monitored URL
+            <SavedSearchIcon /> Set Default Monitored URL
           </Typography>
           {currentDefaultUrlSet && (
             <Chip label={currentDefaultUrlSet} onDelete={() => onSetDefaultCustomUrl('')} sx={{ mb: 1.5 }} />
@@ -101,7 +105,7 @@ function AppHeader({
 
         <Paper variant="outlined" sx={{ p: 2 }}>
           <Typography variant="h6" component="h2" sx={{ mb: 1.5, display: 'flex', alignItems: 'center', gap: 1 }}>
-            <img src="/icons/travel-explore.svg" alt="Explore icon" width="24" height="24" /> Manually Inspect URL
+            <ContentPasteSearchIcon /> Manually Inspect URL
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
             <TextField
@@ -130,7 +134,7 @@ function AppHeader({
             variant="contained"
             color="error"
             onClick={onClearHistory}
-            startIcon={<img src="/icons/delete-forever.svg" alt="Delete icon" width="20" height="20" />}
+            startIcon={<DeleteIcon />}
             aria-label="Clear all redirect history"
           >
             Clear History ({historyLength})

@@ -11,9 +11,9 @@ const AppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <rect width="256" height="256" fill="#F0F4F8"/>
-    <path d="M71 96C71 85.5033 79.5033 77 90 77H156L186 107M71 160V96M71 160H90C100.497 160 109 151.497 109 141V128" stroke="#007BFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="150" cy="120" r="35" stroke="#343A40" stroke-width="14"/>
-    <line x1="178" y1="148" x2="205" y2="175" stroke="#343A40" stroke-width="18" stroke-linecap="round"/>
+    <path d="M71 96C71 85.5033 79.5033 77 90 77H156L186 107M71 160V96M71 160H90C100.497 160 109 151.497 109 141V128" stroke="#007BFF" strokeWidth="18" strokeLinecap="round" strokeLinejoin="round"/>
+    <circle cx="150" cy="120" r="35" stroke="#343A40" strokeWidth="14"/>
+    <line x1="178" y1="148" x2="205" y2="175" stroke="#343A40" strokeWidth="18" strokeLinecap="round"/>
     <circle cx="150" cy="120" r="24" fill="#E7F5FF"/>
   </svg>
 );
