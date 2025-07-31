@@ -97,6 +97,7 @@ function AppHeader({
             <Button
               variant="contained"
               onClick={handleSetDefaultUrlClick}
+              sx={{ flexShrink: 0 }}
             >
               Set Default
             </Button>
@@ -121,6 +122,7 @@ function AppHeader({
             <Button
               variant="contained"
               onClick={handleManualInspectClick}
+              sx={{ flexShrink: 0 }}
             >
               Inspect URL
             </Button>
