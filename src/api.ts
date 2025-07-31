@@ -2,7 +2,7 @@
 import type { RedirectData } from './types';
 
 // IMPORTANT: Replace this with the Invoke URL from your API Gateway deployment.
-const API_ENDPOINT = 'https://YOUR_API_GATEWAY_INVOKE_URL/prod/redirects';
+const API_ENDPOINT = 'https://5wi9wpujda.execute-api.us-east-2.amazonaws.com/prod/redirects';
 
 /**
  * Saves a new redirect entry to the backend via AWS API Gateway and Lambda.
