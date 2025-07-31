@@ -62,12 +62,8 @@ When the page is loaded or its own URL changes:
 ├── metadata.json
 ├── public/
 │   └── icons/
-│       ├── bookmark-add.svg
-│       ├── content-copy.svg
-│       ├── delete-forever.svg
-│       ├── link.svg
-│       ├── logo.svg
-│       └── travel-explore.svg
+│       ├── favicon-16x16.svg
+│       └── favicon-32x32.svg
 └── src/
     ├── components/
     │   ├── AppHeader.tsx
