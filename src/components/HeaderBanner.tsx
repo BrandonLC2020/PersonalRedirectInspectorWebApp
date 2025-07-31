@@ -5,8 +5,6 @@
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
-// CORRECTED IMPORT: Destructure the 'default' export from the imported object and rename it to AppIcon.
 import { default as AppIcon } from './app-icon.svg?react';
 
 function HeaderBanner() {
