@@ -44,7 +44,8 @@ When the page is loaded or its own URL changes:
 
 ## Tech Stack
 
-*   **React 19:** For building the user interface. (Loaded via `esm.sh` CDN through import maps)
+*   **React 18:** For building the user interface.
+*   **Material-UI (MUI):** For a comprehensive suite of UI components.
 *   **TypeScript:** For type safety and improved developer experience.
 *   **HTML5 & CSS3:** For structure and styling.
 *   **Parcel:** Recommended for local development to handle TypeScript/JSX transpilation and provide a dev server.
@@ -53,22 +54,29 @@ When the page is loaded or its own URL changes:
 
 ```
 .
-├── LICENSE                     # Project license file
-├── README.md                   # This file
-├── index.css                   # Global styles for the application
-├── index.html                  # Main HTML entry point
-├── index.tsx                   # Main application component (App) and React DOM rendering
-├── metadata.json               # Project metadata (not directly used by the running app)
-├── RedirectCard.tsx            # React component to display a single redirect entry
+├── LICENSE
+├── README.md
+├── index.css
+├── index.html
+├── index.tsx
+├── metadata.json
+├── public/
+│   └── icons/
+│       ├── bookmark-add.svg
+│       ├── content-copy.svg
+│       ├── delete-forever.svg
+│       ├── link.svg
+│       ├── logo.svg
+│       └── travel-explore.svg
 └── src/
     ├── components/
-    │   ├── AppHeader.tsx       # Component for the main application header
-    │   ├── DataBlock.tsx       # Reusable component for displaying data + copy button
-    │   ├── HeaderBanner.tsx    # Component for the header banner for the application header
-    │   ├── ParamsGrid.tsx      # Component to display query parameters in a grid
-    │   └── componentStyles.css # CSS file for component-specific styles (optional)
-    ├── types.ts                # Shared TypeScript type definitions
-    └── useCopyToClipboard.ts   # Custom React hook for clipboard functionality
+    │   ├── AppHeader.tsx
+    │   ├── DataBlock.tsx
+    │   ├── HeaderBanner.tsx
+    │   ├── ParamsGrid.tsx
+    |   └── RedirectCard.tsx
+    ├── types.ts
+    └── useCopyToClipboard.ts
 ```
 
 ## How to Run Locally
@@ -81,33 +89,34 @@ To run this application on your local machine, you'll need Node.js and npm insta
 2.  **Navigate to Project Directory:**
     Open your terminal or command prompt and change to the directory where you've saved these project files.
 
-3.  **Run with Parcel:**
-    Execute the following command in your terminal:
-    ```bash
-    npx parcel index.html
-    ```
-    *   `npx` will download and run Parcel if you don't have it installed globally.
-    *   Parcel will automatically:
-        *   Transpile the TypeScript/JSX files (`.tsx`) into JavaScript.
-        *   Start a local development server (usually at `http://localhost:1234`).
-        *   Open the application in your default web browser.
+3.  **How to Run Locally:**
 
+    To run this app locally, install the dependencies and then start the Vite development server.
+    # 1. Install dependencies
+    ```bash
+    npm install
+    ```
+
+    # 2. Run the development server
+    ```bash
+    npm run dev
+    ```
 4.  **View the App:**
-    If it doesn't open automatically, navigate to the URL provided by Parcel in your browser (e.g., `http://localhost:1234`).
+    If it doesn't open automatically, navigate to the URL provided by Parcel in your browser (e.g., `http://localhost:5173/PersonalRedirectInspectorWebApp/`).
 
 ## How to Use
 
 1.  **Automatic Inspection (as Redirect Target):**
     *   Navigate to the application's URL in your browser.
-    *   To test its functionality as a redirect target, append query parameters and a URL fragment to its *own* URL. For example, if Parcel serves the app at `http://localhost:1234`, you could navigate to:
-        `http://localhost:1234/?name=JohnDoe&status=active&id=123#profileDetails`
+    *   To test its functionality as a redirect target, append query parameters and a URL fragment to its *own* URL. For example, if Parcel serves the app at `http://localhost:5173/PersonalRedirectInspectorWebApp/`, you could navigate to:
+        `http://localhost:5173/PersonalRedirectInspectorWebApp/?name=JohnDoe&status=active&id=123#profileDetails`
     *   The application will display the full URL, the parsed query parameters (`name`, `status`, `id`), and the fragment (`#profileDetails`). This visit will be logged.
 
 2.  **Set/Clear Default Monitored URL:**
     *   In the header, find the "Set Default Monitored URL" section.
     *   Enter a complete URL (e.g., your ngrok URL, `https://your-service.ngrok.io/callback`) into the input field and click "Set as Default".
-    *   If a default URL is set, and you open the Redirect Inspector *without* any query parameters or hash in its own URL (e.g., just `http://localhost:1234/`), it will automatically inspect your specified default URL.
-    *   The currently set default URL will be displayed. You can clear it using the "Clear Default" button.
+    *   If a default URL is set, and you open the Redirect Inspector *without* any query parameters or hash in its own URL (e.g., just `http://localhost:5173/PersonalRedirectInspectorWebApp/`), it will automatically inspect your specified default URL.
+    *   The currently set default URL will be displayed as a chip, which can be clicked to clear it.
 
 3.  **Manually Inspect a Specific URL:**
     *   In the header, find the "Manually Inspect Specific URL" section.

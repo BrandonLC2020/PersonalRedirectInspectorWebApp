@@ -1,6 +1,0 @@
-{
-  "name": "Redirect URI Inspector",
-  "description": "A tool to inspect query parameters and fragment data from a URL, often used as a redirect URI target.",
-  "requestFramePermissions": [],
-  "prompt": ""
-}

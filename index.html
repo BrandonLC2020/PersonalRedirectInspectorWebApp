@@ -4,21 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirect URI Inspector</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
   <link rel="stylesheet" href="index.css">
-  <link rel="icon" href="/public/icons/favicon-32x32.svg" type="image/svg+xml">
-  <link rel="alternate icon" href="/public/icons/favicon-16x16.svg" type="image/svg+xml" sizes="16x16">
-  <link rel="apple-touch-icon" href="/public/icons/app-icon.svg"> 
-  <!-- You might add another CSS file for component-specific styles if they grow -->
-  <!-- <link rel="stylesheet" href="components.css"> -->
+  <link rel="icon" href="/icons/favicon-32x32.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/icons/favicon-16x16.svg" type="image/svg+xml" sizes="16x16">
+  <link rel="apple-touch-icon" href="/icons/app-icon.svg"> 
   <script type="importmap">
 {
   "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^0.7.0",
-    "react": "https://esm.sh/react@^19.0.0",
-    "react/jsx-runtime": "https://esm.sh/react@^19.0.0/jsx-runtime",
-    "react-dom/client": "https://esm.sh/react-dom@^19.0.0/client",
-    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
-    "react/": "https://esm.sh/react@^19.1.0/"
+    "react": "https://esm.sh/react@18.3.1",
+    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+    "react/": "https://esm.sh/react@18.3.1/",
+    "react-dom": "https://esm.sh/react-dom@18.3.1?deps=react@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client?deps=react@18.3.1",
+    "react-dom/": "https://esm.sh/react-dom@18.3.1/?deps=react@18.3.1",
+
+    "@emotion/react": "https://esm.sh/@emotion/react@11.11.5?deps=react@18.3.1",
+    "@emotion/styled": "https://esm.sh/@emotion/styled@11.11.5?deps=react@18.3.1,@emotion/react@11.11.5",
+
+    "@mui/material": "https://esm.sh/@mui/material@5.16.1?deps=react@18.3.1,react-dom@18.3.1,@emotion/react@11.11.5,@emotion/styled@11.11.5",
+    "@mui/material/": "https://esm.sh/@mui/material@5.16.1/?deps=react@18.3.1,react-dom@18.3.1,@emotion/react@11.11.5,@emotion/styled@11.11.5",
+    "@mui/utils": "https://esm.sh/@mui/utils@5.16.1?deps=react@18.3.1,react-dom@18.3.1",
+    
+    "@google/genai": "https://esm.sh/@google/genai@^0.7.0"
   }
 }
 </script>

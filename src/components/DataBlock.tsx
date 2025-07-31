@@ -3,10 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 import { useCopyToClipboard } from '../useCopyToClipboard';
+import { Box, Typography, Paper, Button } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
 
 interface DataBlockProps {
   title: string;
-  dataId: string; // For ARIA labels and unique IDs
+  dataId: string;
   content: string | null | undefined;
   emptyContentMessage?: string;
   copyButtonLabel?: string;
@@ -30,24 +33,31 @@ function DataBlock({
   };
 
   return (
-    <section aria-labelledby={`${dataId}-heading`}>
-      <h4 id={`${dataId}-heading`}>{title}</h4>
+    <Box component="section" aria-labelledby={`${dataId}-heading`}>
+      <Typography variant="h6" component="h4" id={`${dataId}-heading`} gutterBottom>
+        {title}
+      </Typography>
       {content ? (
         <>
-          <pre className="code-block" aria-label={`${title} value`}>{content}</pre>
-          <button
+          <Paper component="pre" variant="outlined" sx={{ p: 1.5, bgcolor: 'grey.100', overflowX: 'auto', whiteSpace: 'pre-wrap', wordWrap: 'break-word', my: 1 }}>
+            {content}
+          </Paper>
+          <Button
+            size="small"
+            variant="outlined"
             onClick={handleCopy}
+            startIcon={<ContentCopyIcon />}
             aria-live="polite"
             aria-describedby={isCopied ? `${dataId}-copied-feedback` : undefined}
           >
             {isCopied ? copiedButtonLabel : copyButtonLabel}
-          </button>
+          </Button>
           {isCopied && <span id={`${dataId}-copied-feedback`} className="visually-hidden">Content copied to clipboard.</span>}
         </>
       ) : (
-        <p>{emptyContentMessage}</p>
+        <Typography color="text.secondary">{emptyContentMessage}</Typography>
       )}
-    </section>
+    </Box>
   );
 }
 
