@@ -2,43 +2,39 @@
  * @license
  * SPDX-License-Identifier: MIT
  */
-import React from 'react';
-import { Box, Typography } from '@mui/material';
+
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+// CORRECTED IMPORT: Destructure the 'default' export from the imported object and rename it to AppIcon.
+import { default as AppIcon } from './app-icon.svg?react';
 
 function HeaderBanner() {
   return (
     <Box
       sx={{
-        width: '100%',
         display: 'flex',
         alignItems: 'center',
-        p: { xs: 2, sm: 3 },
-        mb: 4,
-        background: 'linear-gradient(90deg, #F8F9FA 0%, #E9ECEF 100%)',
-        borderRadius: 2,
-        border: '1px solid',
-        borderColor: 'divider',
+        p: 2,
+        background: 'linear-gradient(to right, #F8F9FA, #E9ECEF)',
+        marginBottom: '2rem',
+        borderRadius: 1,
       }}
     >
-      <Box sx={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <img src="public/icons/app-icon.svg" alt="Redirect URI Inspector Logo" width="120" height="120" />
-      </Box>
-      <Box sx={{ ml: { xs: 2, sm: 3 } }}>
-        <Typography 
-          variant="h4" 
-          component="h1" 
-          fontWeight="bold" 
-          color="#212529"
-          sx={{ typography: { xs: 'h5', sm: 'h4' } }}
-        >
+      {/* This will now render correctly because AppIcon holds the component */}
+      <AppIcon
+        style={{
+          width: '100px',
+          height: '100px',
+          marginRight: '20px',
+        }}
+      />
+
+      <Box>
+        <Typography variant="h3" component="h1" fontWeight="bold" color="#212529">
           Redirect URI Inspector
         </Typography>
-        <Typography 
-          variant="subtitle1" 
-          component="p" 
-          color="#495057"
-          sx={{ typography: { xs: 'body1', sm: 'subtitle1' } }}
-        >
+        <Typography variant="h6" component="p" color="#495057">
           Inspect, Debug, and Log URL Data
         </Typography>
       </Box>
