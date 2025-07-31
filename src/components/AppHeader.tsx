@@ -4,7 +4,9 @@
  */
 import React from 'react';
 import { useCopyToClipboard } from '../useCopyToClipboard';
-import HeaderBanner from './HeaderBanner'; // Import the new banner component
+import { Box, Paper, TextField, Button, Stack, Chip, Typography } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
+import HeaderBanner from './HeaderBanner';
 
 interface AppHeaderProps {
   autoInspectedUri: string;
@@ -34,113 +36,108 @@ function AppHeader({
   const [isUriCopied, copyUri] = useCopyToClipboard();
 
   const handleCopyUri = () => {
-    if (autoInspectedUri) {
-      copyUri(autoInspectedUri);
-    }
+    if (autoInspectedUri) copyUri(autoInspectedUri);
   };
 
-  const handleManualInspectClick = () => {
-    onInspectManualUrl(manualUrlInput);
-  };
-  
-  const handleManualInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleManualInspectClick();
-    }
-  };
-
-  const handleSetDefaultUrlClick = () => {
-    onSetDefaultCustomUrl(defaultCustomUrlInputValue);
-  };
-
-  const handleDefaultUrlInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleSetDefaultUrlClick();
-    }
-  };
-  
-  const handleClearDefaultUrlClick = () => {
-    onDefaultCustomUrlInputChange(''); // Clear input field as well
-    onSetDefaultCustomUrl(''); // Pass empty string to handler for clearing
-  };
-
+  const handleManualInspectClick = () => onInspectManualUrl(manualUrlInput);
+  const handleSetDefaultUrlClick = () => onSetDefaultCustomUrl(defaultCustomUrlInputValue);
 
   return (
-    <header>
-      {/* Use the new HeaderBanner component */}
+    <Box component="header">
       <HeaderBanner />
 
-      <div className="current-uri-section">
-        <h4>Auto-Inspected URI:</h4>
-        {autoInspectedUri ? (
-          <>
-            <pre className="code-block" aria-label="Automatically inspected URI">{autoInspectedUri}</pre>
-            <button
-              onClick={handleCopyUri}
-              aria-live="polite"
-              aria-describedby={isUriCopied ? "uri-copied-feedback" : undefined}
-            >
-              {isUriCopied ? 'Copied!' : 'Copy URI'}
-            </button>
-            {isUriCopied && <span id="uri-copied-feedback" className="visually-hidden">URI copied to clipboard.</span>}
-          </>
-        ) : (
-          <p>No URI auto-inspected yet. This will update on page load or if a default URL is set.</p>
-        )}
-      </div>
-      
-      <div className="manual-inspect-section">
-        <h4 id="default-url-heading">Set Default Monitored URL:</h4>
-        {currentDefaultUrlSet && (
-          <p className="current-default-info">Currently set to: <code className="code-block inline small">{currentDefaultUrlSet}</code></p>
-        )}
-        <div className="manual-inspect-controls">
-          <input
-            type="url"
-            value={defaultCustomUrlInputValue}
-            onChange={(e) => onDefaultCustomUrlInputChange(e.target.value)}
-            onKeyDown={handleDefaultUrlInputKeyDown}
-            placeholder="e.g., https://my-default.ngrok.app"
-            aria-labelledby="default-url-heading"
-            aria-label="URL to set as default for monitoring"
-            className="manual-url-input"
-          />
-          <button onClick={handleSetDefaultUrlClick} className="inspect-url-button">
-            Set as Default
-          </button>
-           {currentDefaultUrlSet && (
-            <button onClick={handleClearDefaultUrlClick} className="clear-default-button">
-              Clear Default
-            </button>
+      <Stack spacing={2}>
+        <Paper variant="outlined" sx={{ p: 2 }}>
+          <Typography variant="h6" component="h2" sx={{ mb: 1.5, display: 'flex', alignItems: 'center', gap: 1 }}>
+            <img src="/icons/link.svg" alt="Link icon" width="24" height="24" /> Auto-Inspected URI
+          </Typography>
+          {autoInspectedUri ? (
+            <>
+              <Paper component="pre" variant="outlined" sx={{ p: 1.5, bgcolor: 'grey.100', overflowX: 'auto', whiteSpace: 'pre-wrap', wordWrap: 'break-word', my: 1 }}>
+                {autoInspectedUri}
+              </Paper>
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<img src="/icons/content-copy.svg" alt="Copy icon" width="20" height="20" />}
+                onClick={handleCopyUri}
+                aria-live="polite"
+              >
+                {isUriCopied ? 'Copied!' : 'Copy URI'}
+              </Button>
+              {isUriCopied && <span style={visuallyHidden}>URI copied to clipboard.</span>}
+            </>
+          ) : (
+            <Typography color="text.secondary">No URI auto-inspected yet.</Typography>
           )}
-        </div>
-      </div>
+        </Paper>
 
-      <div className="manual-inspect-section">
-        <h4 id="manual-inspect-heading">Manually Inspect Specific URL:</h4>
-        <div className="manual-inspect-controls">
-          <input
-            type="url"
-            value={manualUrlInput}
-            onChange={(e) => onManualUrlInputChange(e.target.value)}
-            onKeyDown={handleManualInputKeyDown}
-            placeholder="e.g., https://example.com/?param=value#hash"
-            aria-labelledby="manual-inspect-heading"
-            aria-label="URL to inspect manually" 
-            className="manual-url-input"
-          />
-          <button onClick={handleManualInspectClick} className="inspect-url-button">
-            Inspect URL
-          </button>
-        </div>
-      </div>
+        <Paper variant="outlined" sx={{ p: 2 }}>
+          <Typography variant="h6" component="h2" sx={{ mb: 1.5, display: 'flex', alignItems: 'center', gap: 1 }}>
+            <img src="/icons/bookmark-add.svg" alt="Bookmark icon" width="24" height="24" /> Set Default Monitored URL
+          </Typography>
+          {currentDefaultUrlSet && (
+            <Chip label={currentDefaultUrlSet} onDelete={() => onSetDefaultCustomUrl('')} sx={{ mb: 1.5 }} />
+          )}
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
+            <TextField
+              fullWidth
+              size="small"
+              type="url"
+              label="Default URL to monitor"
+              value={defaultCustomUrlInputValue}
+              onChange={(e) => onDefaultCustomUrlInputChange(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSetDefaultUrlClick()}
+              placeholder="e.g., https://my-default.ngrok.app"
+            />
+            <Button
+              variant="contained"
+              onClick={handleSetDefaultUrlClick}
+            >
+              Set Default
+            </Button>
+          </Stack>
+        </Paper>
+
+        <Paper variant="outlined" sx={{ p: 2 }}>
+          <Typography variant="h6" component="h2" sx={{ mb: 1.5, display: 'flex', alignItems: 'center', gap: 1 }}>
+            <img src="/icons/travel-explore.svg" alt="Explore icon" width="24" height="24" /> Manually Inspect URL
+          </Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
+            <TextField
+              fullWidth
+              size="small"
+              type="url"
+              label="URL to inspect"
+              value={manualUrlInput}
+              onChange={(e) => onManualUrlInputChange(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleManualInspectClick()}
+              placeholder="e.g., https://example.com/?param=value#hash"
+            />
+            <Button
+              variant="contained"
+              onClick={handleManualInspectClick}
+            >
+              Inspect URL
+            </Button>
+          </Stack>
+        </Paper>
+      </Stack>
 
       {historyLength > 0 && (
-        <button onClick={onClearHistory} className="clear-history-button" aria-label="Clear all redirect history">
-          Clear History ({historyLength})
-        </button>
+        <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={onClearHistory}
+            startIcon={<img src="/icons/delete-forever.svg" alt="Delete icon" width="20" height="20" />}
+            aria-label="Clear all redirect history"
+          >
+            Clear History ({historyLength})
+          </Button>
+        </Box>
       )}
-    </header>
+    </Box>
   );
 }
 

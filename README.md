@@ -44,7 +44,8 @@ When the page is loaded or its own URL changes:
 
 ## Tech Stack
 
-*   **React 19:** For building the user interface. (Loaded via `esm.sh` CDN through import maps)
+*   **React 18:** For building the user interface.
+*   **Material-UI (MUI):** For a comprehensive suite of UI components.
 *   **TypeScript:** For type safety and improved developer experience.
 *   **HTML5 & CSS3:** For structure and styling.
 *   **Parcel:** Recommended for local development to handle TypeScript/JSX transpilation and provide a dev server.
@@ -53,22 +54,29 @@ When the page is loaded or its own URL changes:
 
 ```
 .
-├── LICENSE                     # Project license file
-├── README.md                   # This file
-├── index.css                   # Global styles for the application
-├── index.html                  # Main HTML entry point
-├── index.tsx                   # Main application component (App) and React DOM rendering
-├── metadata.json               # Project metadata (not directly used by the running app)
-├── RedirectCard.tsx            # React component to display a single redirect entry
+├── LICENSE
+├── README.md
+├── index.css
+├── index.html
+├── index.tsx
+├── metadata.json
+├── public/
+│   └── icons/
+│       ├── bookmark-add.svg
+│       ├── content-copy.svg
+│       ├── delete-forever.svg
+│       ├── link.svg
+│       ├── logo.svg
+│       └── travel-explore.svg
 └── src/
     ├── components/
-    │   ├── AppHeader.tsx       # Component for the main application header
-    │   ├── DataBlock.tsx       # Reusable component for displaying data + copy button
-    │   ├── HeaderBanner.tsx    # Component for the header banner for the application header
-    │   ├── ParamsGrid.tsx      # Component to display query parameters in a grid
-    │   └── componentStyles.css # CSS file for component-specific styles (optional)
-    ├── types.ts                # Shared TypeScript type definitions
-    └── useCopyToClipboard.ts   # Custom React hook for clipboard functionality
+    │   ├── AppHeader.tsx
+    │   ├── DataBlock.tsx
+    │   ├── HeaderBanner.tsx
+    │   ├── ParamsGrid.tsx
+    |   └── RedirectCard.tsx
+    ├── types.ts
+    └── useCopyToClipboard.ts
 ```
 
 ## How to Run Locally
@@ -107,7 +115,7 @@ To run this application on your local machine, you'll need Node.js and npm insta
     *   In the header, find the "Set Default Monitored URL" section.
     *   Enter a complete URL (e.g., your ngrok URL, `https://your-service.ngrok.io/callback`) into the input field and click "Set as Default".
     *   If a default URL is set, and you open the Redirect Inspector *without* any query parameters or hash in its own URL (e.g., just `http://localhost:1234/`), it will automatically inspect your specified default URL.
-    *   The currently set default URL will be displayed. You can clear it using the "Clear Default" button.
+    *   The currently set default URL will be displayed as a chip, which can be clicked to clear it.
 
 3.  **Manually Inspect a Specific URL:**
     *   In the header, find the "Manually Inspect Specific URL" section.
